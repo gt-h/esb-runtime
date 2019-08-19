@@ -6,9 +6,9 @@
 3. Используйте .env и Dockerfile чтобы задать параметры проекта.
 
 **Способы запуска, выбирайте любой подходящий**
-1. Сборка с нуля:
-  docker build -t _yourname .
-  docker run -d -v $PWD/apps:/opt/mule/apps -v $PWD/conf:/opt/mule/conf -v $PWD/logs:/opt/mule/logs -v $PWD/domains:/opt/mule/domains -p80:8181 _yourname
+Первый способ
+- docker build -t _yourname .
+- docker run -d -v $PWD/apps:/opt/mule/apps -v $PWD/conf:/opt/mule/conf -v $PWD/logs:/opt/mule/logs -v $PWD/domains:/opt/mule/domains -p80:8181 _yourname
 
 2. Запуск заранее собранного, версия 3.9.0:
 docker run -d -v $PWD/apps:/opt/mule/apps -v $PWD/conf:/opt/mule/conf -v $PWD/logs:/opt/mule/logs -v $PWD/domains:/opt/mule/domains -p80:8181 vale76/esb-runtime
