@@ -1,22 +1,33 @@
-Данная сборка позволяет развернуть родное Bitrix окружение в docker среде. Особенности сборки:
+#esb-runtime
 
-родной web интерфейс для установки нового проекта или восстановления из резервной копии
-поддержка живой ленты, бизнес чата и т.д.
-проходит все проверки битриксовского System check
-Архитектура проекта Проект состоит их 2-х сервисов: bitrix-env и mysql. В контейнере bitrix-env развернуты:
+Содание нового проекта:
+1. Выполните it clone https://github.com/gt-h/esb-runtime.git <name>
+2. cd <name>
+3. Используйте .env и Dockerfile чтобы задать параметры проекта.
 
-nginx с поддежкой push-stream-module
-apache
-memcahed
-php
-crond
-sshd
-Версии компонентов соотвествуют версиям из официального bitrix-env. В контейнере mysql развернута mysql-5.7. В .env задаются переменные окружения. Внимание! Переменная max_allowed_packet в в скриптах как переменная не задействована.
+**Способы запуска, выбирайте любой подходящий**
+1. Сборка с нуля:
+  docker build -t <youname> .
+  docker run -d -v $PWD/apps:/opt/mule/apps -v $PWD/conf:/opt/mule/conf -v $PWD/logs:/opt/mule/logs -v $PWD/domains:/opt/mule/domains -p80:8181 <yourname>
 
-Содание нового проекта
+2. Запуск заранее собранного, версия 3.9.0:
+docker run -d -v $PWD/apps:/opt/mule/apps -v $PWD/conf:/opt/mule/conf -v $PWD/logs:/opt/mule/logs -v $PWD/domains:/opt/mule/domains -p80:8181 vale76/esb-runtime
 
-Выполните git clone https://github.com/gt-h/bitrix-env-latest.git
-Установите значения переменных в .env
-Используйте start.sh да запуска или перезапуска проекта. Внимание! Первый запуск займет продолжительное время.
-Используйте stop.sh для останова проекта и удаления мусора.
-Для получения сертификата SSL Let's Encrypt запустите /root/menu.sh в консоли контейнера bitrix-env.
+Выбор параметров оставляю на усмотрение пользователя
+
+3. Запуск с помощью docker-compose:
+docker-compose up -d --build
+
+**Тестирование**
+ Установите тестовой приложение:
+ cp mule-hello.zip apps/
+ http://<yourip>
+ 
+ **Инспектирование**
+ tail -f logs/*
+ 
+ **Feedback**
+ vale@gtufa.ru
+ 
+
+
